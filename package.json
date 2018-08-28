@@ -1,0 +1,32 @@
+{
+  "name": "retry-assert",
+  "version": "1.0.0",
+  "author": "Nathan Jones",
+  "license": "Apache-2.0",
+  "description": "Retry a function until or while it passes an assertion",
+  "keywords": [
+    "retry",
+    "assert",
+    "test",
+    "async",
+    "wait",
+    "until",
+    "ensure"
+  ],
+  "homepage": "https://github.com/ncjones/retry-assert",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ncjones/retry-assert.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ncjones/retry-assert/issues"
+  },
+  "main": "retry-assert.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
