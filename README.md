@@ -22,11 +22,19 @@ assertion:
 ```javascript
 const retry = require('retry-assert')
 const expect = require('expect')
-// call the asynchronous "getUser" method until user is active:
-const user = await retry()
-  .fn(() => client.getUser(id))
-  .until(user => expect(user).toHaveProperty('active', true))
-// user is active ... now make other assertions
+
+async function getUser (id) {
+  console.log('get user')
+  return { id, active: Date.now() % 10 === 0 }
+}
+
+(async function () {
+  // call the asynchronous "getUser" method until user is active:
+  const activeUser = await retry()
+    .fn(() => getUser(1))
+    .until(user => expect(user).toHaveProperty('active', true))
+  console.log(activeUser)
+})()
 ```
 
 
@@ -36,13 +44,21 @@ assertion fails:
 ```javascript
 const retry = require('retry-assert')
 const expect = require('expect')
-// call the asynchronous "getUser" method repeatedly for 2 seconds,
-// ensuring user is not active:
-const user = await retry()
-  .fn(() => client.getUser(id))
-  .withTimeout(2000)
-  .ensure(user => expect(user).toHaveProperty('active', false))
-// user is not active ... now make other assertions
+
+async function getUser (id) {
+  console.log('get user')
+  return { id, active: Date.now() % 10 === 0 }
+}
+
+(async function () {
+  // call the asynchronous "getUser" function repeatedly for 2 seconds,
+  // ensuring user is not active:
+  const inactiveUser = await retry()
+    .fn(() => getUser(2))
+    .withTimeout(2000)
+    .ensure(user => expect(user).toHaveProperty('active', false))
+  console.log(inactiveUser)
+})()
 ```
 
 Motivation
@@ -74,7 +90,7 @@ similar retry libraries:
 
 | Library                | Async | Config | Yields | Fluent | Assert | Ensure | Notes / Syntax                       |
 | ---------------------- | ----- | ------ | ------ | ------ | ------ | ------ | ------------------------------------ |
-| [Retry-Assert](./)     | Yes   | Yes    | Yes    | Yes    | Yes    | Yes    | `retry(fn).until(predicate)`         |
+| [Retry-Assert](./)     | Yes   | Yes    | Yes    | Yes    | Yes    | Yes    | `retry(fn).until(() => assertion)`         |
 | [RSpec-Wait][]         |       | Yes    | Yes    | Yes    | Yes    |        | Ruby                                 |
 | [TryTryAgain][]        | Yes   | Yes    | Yes    |        |        | Yes    | `retry(fn, options)`                 |
 | [Async-Wait-Until][]   | Yes   | Yes    | Yes    |        |        |        | `waitUntil(fn, timeout, delay)`      |
