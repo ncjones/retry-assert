@@ -1,6 +1,8 @@
 Retry Assert
 ============
 
+[![Build Status](https://travis-ci.org/ncjones/retry-assert.svg?branch=master)](https://travis-ci.org/ncjones/retry-assert)
+
 Retry a function, either until or while an assertion passes, seamlessly
 integrating with Promise-aware test runners such as Mocha, Jest and Cucumber
 JS, producing better failure messages than other similar libraries. Inspired by
