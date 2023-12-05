@@ -22,21 +22,19 @@ Usage
 assertion:
 
 ```javascript
-const retry = require('retry-assert')
-const expect = require('expect')
+import retry = from 'retry-assert';
+import { expect } from 'expect';
 
 async function getUser (id) {
-  console.log('get user')
-  return { id, active: Date.now() % 10 === 0 }
+  console.log('get user');
+  return { id, active: Date.now() % 10 === 0 };
 }
 
-(async function () {
-  // call the asynchronous "getUser" method until user is active:
-  const activeUser = await retry()
-    .fn(() => getUser(1))
-    .until(user => expect(user).toHaveProperty('active', true))
-  console.log(activeUser)
-})()
+// call the asynchronous "getUser" method until user is active:
+const activeUser = await retry()
+  .fn(() => getUser(1))
+  .until(user => expect(user).toHaveProperty('active', true));
+console.log(activeUser);
 ```
 
 
@@ -44,23 +42,21 @@ async function getUser (id) {
 assertion fails:
 
 ```javascript
-const retry = require('retry-assert')
-const expect = require('expect')
+import retry from 'retry-assert';
+import { expect } from 'expect';
 
 async function getUser (id) {
-  console.log('get user')
-  return { id, active: Date.now() % 10 === 0 }
+  console.log('get user');
+  return { id, active: Date.now() % 10 === 0 };
 }
 
-(async function () {
-  // call the asynchronous "getUser" function repeatedly for 2 seconds,
-  // ensuring user is not active:
-  const inactiveUser = await retry()
-    .fn(() => getUser(2))
-    .withTimeout(2000)
-    .ensure(user => expect(user).toHaveProperty('active', false))
-  console.log(inactiveUser)
-})()
+// call the asynchronous "getUser" function repeatedly for 2 seconds,
+// ensuring user is not active:
+const inactiveUser = await retry()
+  .fn(() => getUser(2))
+  .withTimeout(2000)
+  .ensure(user => expect(user).toHaveProperty('active', false));
+console.log(inactiveUser);
 ```
 
 Motivation
