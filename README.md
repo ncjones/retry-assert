@@ -284,7 +284,7 @@ Returns: RetryBuilder
 Legal
 -----
 
-Copyright 2018 Practiv Ltd. Licensed under the Apache License, Version 2.0.
+Copyright 2018 Practiv Ltd and Copyright 2023 Nathan Jones. Licensed under the Apache License, Version 2.0.
 
 
 [Mocha-Retry]: https://www.npmjs.com/package/mocha-retry
