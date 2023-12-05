@@ -1,5 +1,9 @@
-const expect = require('expect')
+const { expect } = require('expect')
 const retry = require('../retry-assert')
+
+function fail(message) {
+  throw new Error(`Fail: ${message}`);
+}
 
 function spy (fn) {
   let invocations = []
@@ -104,9 +108,9 @@ describe('until', () => {
         .withRetryDelay(1)
         .withTimeout(1)
         .until(result => expect(result).toEqual(1))
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
-      expect(e.message).toContain('Expected value to equal:')
+      expect(e.message).toContain('Expected:')
     }
   })
 
@@ -117,7 +121,7 @@ describe('until', () => {
         .withRetryDelay(1)
         .withTimeout(1)
         .until(result => expect(1).toEqual(1))
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       console.log(e)
       expect(e).toContain('fn failed')
@@ -166,7 +170,7 @@ describe('untilTruthy', () => {
         .withRetryDelay(1)
         .withTimeout(1)
         .untilTruthy()
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(e.message).toEqual('predicate did not match')
     }
@@ -179,7 +183,7 @@ describe('untilTruthy', () => {
         .withRetryDelay(1)
         .withTimeout(1)
         .untilTruthy(x => { throw new Error('predicate failed') })
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(e.message).toEqual('predicate failed')
       expect(fn.getCount()).toEqual(2)
@@ -220,9 +224,9 @@ describe('ensure', () => {
     try {
       await retry(fn)
         .ensure(result => expect(result).toEqual('x'))
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch(e) {
-      expect(e.message).toContain('Expected value to equal:')
+      expect(e.message).toContain('Expected:')
       expect(fn.getCount()).toEqual(1)
     }
   })
@@ -232,7 +236,7 @@ describe('ensure', () => {
     try {
       await retry(fn)
         .ensure(result => expect(result).toEqual('x'))
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch(e) {
       expect(e).toContain('fn failed')
       expect(fn.getCount()).toEqual(1)
@@ -246,7 +250,7 @@ describe('ensure', () => {
         .withRetryDelay(10)
         .withTimeout(50)
         .ensure(result => expect(result).toBeLessThan(2))
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(fn.getCount()).toEqual(3)
     }
@@ -276,7 +280,7 @@ describe('ensureTruthy', () => {
     try {
       await retry(fn)
         .ensureTruthy()
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch(e) {
       expect(e.message).toEqual('predicate did not match')
       expect(fn.getCount()).toEqual(1)
@@ -290,7 +294,7 @@ describe('ensureTruthy', () => {
         .withRetryDelay(1)
         .withTimeout(1)
         .ensureTruthy(x => { throw new Error('predicate failed') })
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(e.message).toEqual('predicate failed')
       expect(fn.getCount()).toEqual(1)
@@ -304,7 +308,7 @@ describe('ensureTruthy', () => {
         .withRetryDelay(10)
         .withTimeout(50)
         .ensureTruthy(result => result < 2)
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(fn.getCount()).toEqual(3)
     }
@@ -318,7 +322,7 @@ describe('validation', () => {
     try {
       await retry()
         .untilTruthy()
-      expect.fail('expected promise rejection')
+      fail('expected promise rejection')
     } catch (e) {
       expect(e.message).toEqual('retry function undefined or not a function')
     }
