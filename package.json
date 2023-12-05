@@ -22,10 +22,10 @@
     "url": "https://github.com/ncjones/retry-assert/issues"
   },
   "main": "retry-assert.js",
+  "packageManager": "yarn@4.0.2",
   "scripts": {
     "test": "jest"
   },
-  "dependencies": {},
   "devDependencies": {
     "jest": "^23.6.0"
   }
