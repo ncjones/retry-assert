@@ -31,7 +31,7 @@
   *        .fn(() => httpClient.get('/deleted-resource'))
   *        .ensure(response => expect(response).toHaveProperty('status', 404))
   */
-declare function retry<T>(fn?: () => T): RetryBuilder<T>;
+declare function retry<T>(fn?: () => Promise<T> | T): RetryBuilder<T>;
 
 declare namespace retry {
 
@@ -82,7 +82,7 @@ interface RetryBuilder<T> {
    * result of the final invocation of the given function will be resolved by the
    * promise returned by this builder's terminal operation.
    */
-  fn<U>(fn: () => U): RetryBuilder<U>;
+  fn<U>(fn: () => Promise<U> | U): RetryBuilder<U>;
 
   /**
    * Set the assertion function to apply to the result of each invocation of the
