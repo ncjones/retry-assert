@@ -155,4 +155,4 @@ interface RetryBuilder<T> {
 
 declare module 'retry-assert';
 
-export default retry;
+export = retry;
