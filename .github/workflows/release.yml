@@ -12,7 +12,7 @@ jobs:
       - run: corepack enable
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '18.x', cache: yarn, registry-url: 'https://registry.npmjs.org' }
+        with: { node-version: '22.x', cache: yarn, registry-url: 'https://registry.npmjs.org' }
       - run: yarn install --immutable
       - run: scripts/version-tag-validate.js ${{ github.ref }}
       - run: npm publish --access public
