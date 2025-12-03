@@ -20,7 +20,7 @@ Usage
 assertion:
 
 ```javascript
-import * as retry from 'retry-assert';
+import retry from 'retry-assert';
 import { expect } from 'expect';
 
 async function getUser (id) {
@@ -40,7 +40,7 @@ console.log(activeUser);
 assertion fails:
 
 ```javascript
-import * as retry from 'retry-assert';
+import retry from 'retry-assert';
 import { expect } from 'expect';
 
 async function getUser (id) {
