@@ -16,5 +16,3 @@ jobs:
       - run: yarn install --immutable
       - run: scripts/version-tag-validate.js ${{ github.ref }}
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
