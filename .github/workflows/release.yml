@@ -15,4 +15,5 @@ jobs:
         with: { node-version: '22.x', cache: yarn, registry-url: 'https://registry.npmjs.org' }
       - run: yarn install --immutable
       - run: scripts/version-tag-validate.js ${{ github.ref }}
+      - run: npm install -g npm@latest
       - run: npm publish --access public
